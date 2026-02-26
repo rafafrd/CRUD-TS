@@ -1,0 +1,372 @@
+type: collection.insomnia.rest/5.0
+schema_version: "5.1"
+name: poo test
+meta:
+  id: wrk_9f654641baff4447a183509910f0d996
+  created: 1772027418204
+  modified: 1772027418204
+  description: ""
+collection:
+  - name: Categoria
+    meta:
+      id: fld_2a0b1a8e59634a9c9cbc33c11149c98e
+      created: 1772113372880
+      modified: 1772113372880
+      sortKey: -1772113372881
+      description: ""
+    children:
+      - url: http://localhost:8000/categorias
+        name: SELECT
+        meta:
+          id: req_93986cc744634094bb799ac1cb55385e
+          created: 1772028043102
+          modified: 1772113384604
+          isPrivate: false
+          description: ""
+          sortKey: -1772113378310
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/12.3.1
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8000/categorias
+        name: INSERT
+        meta:
+          id: req_ab46adafabe24b80aedf0fa43bc5b2ac
+          created: 1772028589772
+          modified: 1772114439995
+          isPrivate: false
+          description: ""
+          sortKey: -1772113378210
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"nome": "Eletronicos",
+            	"ativo": true
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/12.3.1
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8000/categorias
+        name: Edit
+        meta:
+          id: req_4e84a2c5b8c9410faf27c5ad1c5cff0f
+          created: 1772028812136
+          modified: 1772113378032
+          isPrivate: false
+          description: ""
+          sortKey: -1772113378010
+        method: PATCH
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"nome": "Cervejas importadas",
+            	"ativo": true
+            }
+        parameters:
+          - name: id
+            value: "1"
+            description: ""
+            disabled: false
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/12.3.1
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8000/categorias
+        name: Delete
+        meta:
+          id: req_5dfa9e9c3ce8470fbe701a16ec325b9d
+          created: 1772105077694
+          modified: 1772113381717
+          isPrivate: false
+          description: ""
+          sortKey: -1772113378110
+        method: DELETE
+        parameters:
+          - name: id
+            value: "5"
+            description: ""
+            disabled: false
+        headers:
+          - name: User-Agent
+            value: insomnia/12.3.1
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8000/categorias/pesquisa
+        name: SELECT nome
+        meta:
+          id: req_7dd4cb6751ae4dfb883fdeaa467f26b2
+          created: 1772108469887
+          modified: 1772113387086
+          isPrivate: false
+          description: ""
+          sortKey: -1772113378235
+        method: GET
+        parameters:
+          - name: nome
+            value: Cerveja
+            description: ""
+            disabled: false
+        headers:
+          - name: User-Agent
+            value: insomnia/12.3.1
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8000/categorias/1
+        name: SELECT by ID
+        meta:
+          id: req_5e64b4c4008b4e199cd704a4f9162753
+          created: 1772109114783
+          modified: 1772113385858
+          isPrivate: false
+          description: ""
+          sortKey: -1772113378260
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/12.3.1
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+  - name: Produtos
+    meta:
+      id: fld_63190024f8f94dea8acd0708bc321ce4
+      created: 1772113395405
+      modified: 1772113395405
+      sortKey: -1772113395405
+      description: ""
+    children:
+      - url: http://localhost:8000/produtos
+        name: Select
+        meta:
+          id: req_db26c0655fee43529b723f19eaa3685b
+          created: 1772113745151
+          modified: 1772113872427
+          isPrivate: false
+          description: ""
+          sortKey: -1772113792038
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/12.3.1
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8000/produtos/1
+        name: Select By Id
+        meta:
+          id: req_0ac3da98eeb64743851b539f8d2b7a05
+          created: 1772113763538
+          modified: 1772114016070
+          isPrivate: false
+          description: ""
+          sortKey: -1772113791938
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/12.3.1
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8000/produtos/pesquisa
+        name: Select By Name
+        meta:
+          id: req_3f3ab0200884405981ed029591bb9b40
+          created: 1772113772507
+          modified: 1772114089353
+          isPrivate: false
+          description: ""
+          sortKey: -1772113791838
+        method: GET
+        parameters:
+          - name: nome
+            value: cal
+            description: ""
+            disabled: false
+        headers:
+          - name: User-Agent
+            value: insomnia/12.3.1
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8000/produtos
+        name: Insert
+        meta:
+          id: req_8d7bee509fd34c37befe040c529d7e03
+          created: 1772113784623
+          modified: 1772114198400
+          isPrivate: false
+          description: ""
+          sortKey: -1772113791738
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"nome": "Chopp Pilsen",
+            	"preco": 11.99,
+            	"categoriaId": 4
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/12.3.1
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8000/produtos/3
+        name: Delete
+        meta:
+          id: req_9d5f9922344042f1bb7f21ada94592d3
+          created: 1772113803096
+          modified: 1772114907233
+          isPrivate: false
+          description: ""
+          sortKey: -1772113791638
+        method: DELETE
+        headers:
+          - name: User-Agent
+            value: insomnia/12.3.1
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8000/produtos/4
+        name: Edit
+        meta:
+          id: req_9eb30094ff484dfd80c56c2710414184
+          created: 1772113832342
+          modified: 1772115386671
+          isPrivate: false
+          description: ""
+          sortKey: -1772113791538
+        method: PATCH
+        body:
+          mimeType: application/json
+          text: |
+            {
+            	"nome" : "Vinho",
+            	"preco": 16.99,
+            	"categoriaId": 4
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/12.3.1
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+cookieJar:
+  name: Default Jar
+  meta:
+    id: jar_300e1f78f5d9fae27f3d661c6b9fa13fd7e03778
+    created: 1772027418210
+    modified: 1772027418210
+environments:
+  name: Base Environment
+  meta:
+    id: env_300e1f78f5d9fae27f3d661c6b9fa13fd7e03778
+    created: 1772027418207
+    modified: 1772027418207
+    isPrivate: false
