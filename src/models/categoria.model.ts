@@ -2,14 +2,15 @@ import { RowDataPacket } from "mysql2";
 
 export interface Icategoria extends RowDataPacket {
   id?: number;
-  nome?: string;
+  nome: string;
   ativo?: boolean;
   dataCad?: Date;
 }
+// a ? na frente do campo indica que ele é opcional
 
 export class Categoria {
   readonly _id?: number;
-  private _nome: string = "";
+  private _nome: string = ""; // deixando vazia para evitar erros de undefined, o nome é obrigatório, então não tem problema
   readonly _ativo: boolean;
   readonly _dataCad?: Date;
 

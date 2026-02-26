@@ -7,8 +7,8 @@ const categoriaRoutes = Router();
 
 //get
 categoriaRoutes.get("/categorias", categoriaController.selecionarTodos);
+categoriaRoutes.get("/categorias/pesquisa", categoriaController.selecionarPorNome);  // http://localhost:8000/categorias/pesquisa?nome=Cerveja
 categoriaRoutes.get("/categorias/:id", categoriaController.selecionarPorId);
-
 // post
 categoriaRoutes.post("/categorias", categoriaController.criar);
 

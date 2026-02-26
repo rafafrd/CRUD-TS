@@ -4,8 +4,8 @@
 
 - [x] Consulta por ID, informar se o registro não existe
 
-- [] Consulta por nome da categoria
+- [x] Consulta por nome da categoria (fix: esta retornando tudo)
 
-- [] Consulta para exibir as categorias em ordem alfabética
+- [x] Consulta para exibir as categorias em ordem alfabética
 
 - [] Crud completo para produtos com todos os recursos de categoria

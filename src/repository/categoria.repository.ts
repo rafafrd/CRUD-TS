@@ -4,7 +4,7 @@ import { ResultSetHeader } from "mysql2";
 
 export class CategoriaRepository {
   async findAll(): Promise<Icategoria[]>{
-    const [rows] = await db.execute<Icategoria[]>("SELECT * FROM categorias;");
+    const [rows] = await db.execute<Icategoria[]>("SELECT * FROM categorias ORDER BY nome;");
     return rows; 
   }
 
@@ -13,6 +13,12 @@ export class CategoriaRepository {
     const values = [id];
     const [rows] = await db.execute<Icategoria[]>(sql, values);
     return rows.length > 0 ? rows[0] : null;
+  }
+  async findByName(nome: string): Promise<Icategoria[]> {
+    const sql = "SELECT * FROM categorias WHERE nome LIKE ? ORDER BY nome;"; // LIKE deixa a query lenta :(
+    const values = [`%${nome}%`]; // caso queira buscar por nome parcial
+    const [rows] = await db.execute<Icategoria[]>(sql, values);
+    return rows;
   }
   // Omit => Omite os campos discriminados do tipo, nesse caso o id, pois ele é auto incrementado (banco gera)
   async create(dados: Omit<Icategoria, 'id'>): Promise<ResultSetHeader> {

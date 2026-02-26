@@ -7,9 +7,11 @@ export class CategoriaService {
   async selecionarTodos(){
     return await this._repository.findAll();
   }
-
   async selecionarPorId(id: number) {
     return await this._repository.findById(id);
+  }
+  async selecionarPorNome(nome: string) {
+    return await this._repository.findByName(nome);
   }
   async criar(nome: string) {
     const categoria = Categoria.criar(nome);
