@@ -69,7 +69,7 @@ export class CategoriaController {
     editar = async (req: Request, res: Response) => {
       try {
         const { nome, ativo } = req.body;
-        const id = Number(req.query.id);
+        const id = Number(req.params.id);
         const alterado = await this._service.editar(id, nome, ativo);
         res.status(200).json({ message: "Categoria editada com sucesso", alterado });
       } catch (error: unknown) {
@@ -80,7 +80,7 @@ export class CategoriaController {
 
     deletar = async (req: Request, res: Response) => {
       try {
-        const id = Number(req.query.id);
+        const id = Number(req.params.id);
         const deletado = await this._service.deletar(id);
         if (deletado.affectedRows === 0) {
           return res.status(404).json({ message: "Categoria não encontrada para deletar" });

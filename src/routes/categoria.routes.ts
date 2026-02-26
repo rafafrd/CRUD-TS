@@ -13,9 +13,9 @@ categoriaRoutes.get("/categorias/:id", categoriaController.selecionarPorId);
 categoriaRoutes.post("/categorias", categoriaController.criar);
 
 // patch
-categoriaRoutes.patch("/categorias", categoriaController.editar);
+categoriaRoutes.patch("/categorias/:id", categoriaController.editar);
 
 // delete
-categoriaRoutes.delete("/categorias", categoriaController.deletar);
+categoriaRoutes.delete("/categorias/:id", categoriaController.deletar);
 
 export default categoriaRoutes;

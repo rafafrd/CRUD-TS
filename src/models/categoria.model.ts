@@ -15,7 +15,7 @@ export class Categoria {
   readonly _dataCad?: Date;
 
   constructor(nome: string, ativo?: boolean, id?: number) {
-    this.Nome = nome;
+    this._nome = nome;
     this._ativo = ativo ?? true;
     this._id = id;
   }
