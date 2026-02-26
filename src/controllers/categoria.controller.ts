@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { CategoriaService } from "../services/categoria.service";
 
 export class CategoriaController {
-  constructor(private _service = new CategoriaService()) { }
+  constructor(readonly _service = new CategoriaService()) { }
 
     selecionarTodos = async (req: Request, res: Response) => {
       try {
@@ -13,6 +13,20 @@ export class CategoriaController {
         console.error("Erro ao selecionar categorias:", error);
       }
     }
+    selecionarPorId = async (req: Request, res: Response) => {
+      try {
+        const id = Number(req.params.id);
+        const categoria = await this._service.selecionarPorId(id);
+        if (categoria) {
+          res.status(200).json({ categoria });
+        } else {
+          res.status(404).json({ message: "Categoria não encontrada" });
+        }
+      } catch (error: unknown) {
+        res.status(500).json({ error: "Erro ao selecionar categoria por ID", errorMessage: error instanceof Error ? error.message : "Erro desconhecido" });
+        console.error("Erro ao selecionar categoria por ID:", error);
+      }
+    }
     criar = async (req: Request, res: Response) => {
       try {
         const { nome } = req.body;
@@ -20,7 +34,7 @@ export class CategoriaController {
         res.status(201).json({ message: "Categoria criada com sucesso", resultado });
       } catch (error: unknown) {
         res.status(500).json({ error: "Erro ao criar categoria", errorMessage: error instanceof Error ? error.message : "Erro desconhecido" });
-        console.error("Erro ao selecionar categorias:", error);
+        console.error("Erro ao criar categoria:", error);
         }
     }
     editar = async (req: Request, res: Response) => {
@@ -32,6 +46,19 @@ export class CategoriaController {
       } catch (error: unknown) {
         res.status(500).json({ error: "Erro ao editar categoria", errorMessage: error instanceof Error ? error.message : "Erro desconhecido" });
         console.error("Erro ao editar categoria:", error);
+      }
+    }
+    deletar = async (req: Request, res: Response) => {
+      try {
+        const id = Number( req.query.id);
+        const deletado = await this._service.deletar(id);
+        if (deletado.affectedRows === 0) {
+          return res.status(404).json({ message: "Categoria não encontrada para deletar" });
+        }
+        res.status(200).json({ message: "Categoria deletada com sucesso", deletado });
+      } catch (error: unknown) {
+        res.status(500).json({ error: "Erro ao deletar categoria", errorMessage: error instanceof Error ? error.message : "Erro desconhecido" });
+        console.error("Erro ao deletar categoria:", error);
       }
     }
   }

@@ -8,10 +8,10 @@ export interface Icategoria extends RowDataPacket {
 }
 
 export class Categoria {
-  private _id?: number;
+  readonly _id?: number;
   private _nome: string = "";
-  private _ativo: boolean;
-  private _dataCad?: Date;
+  readonly _ativo: boolean;
+  readonly _dataCad?: Date;
 
   constructor(nome: string, ativo?: boolean, id?: number) {
     this.Nome = nome;
@@ -48,6 +48,10 @@ export class Categoria {
 
   public static editar(nome:string, ativo:boolean, id:number) {
     return new Categoria(nome, ativo, id)
+  }
+  public static deletar(id:number): Categoria {
+    const categoria = new Categoria("N/A", true, id);  //gambiarra
+    return categoria;
   }
 
   private _validarNome(value:string): void {

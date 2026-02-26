@@ -7,6 +7,13 @@ export class CategoriaRepository {
     const [rows] = await db.execute<Icategoria[]>("SELECT * FROM categorias;");
     return rows; 
   }
+
+  async findById(id: number): Promise<Icategoria | null> {
+    const sql = "SELECT * FROM categorias WHERE id = ?;";
+    const values = [id];
+    const [rows] = await db.execute<Icategoria[]>(sql, values);
+    return rows.length > 0 ? rows[0] : null;
+  }
   // Omit => Omite os campos discriminados do tipo, nesse caso o id, pois ele é auto incrementado (banco gera)
   async create(dados: Omit<Icategoria, 'id'>): Promise<ResultSetHeader> {
     const sql = "INSERT INTO categorias (nome, ativo) VALUES (?, ?);";
@@ -18,6 +25,13 @@ export class CategoriaRepository {
   async update(id: number, dados: Omit<Icategoria, 'id'>): Promise<ResultSetHeader> {
     const sql = "UPDATE categorias SET nome = ?, ativo = ? WHERE id = ?;";
     const values = [dados._nome, dados._ativo, id];
+    const [rows] = await db.execute<ResultSetHeader>(sql, values);
+    return rows;
+  }
+
+  async delete(id: number): Promise<ResultSetHeader> {
+    const sql = "DELETE FROM categorias WHERE id = ?;";
+    const values = [id];
     const [rows] = await db.execute<ResultSetHeader>(sql, values);
     return rows;
   }
