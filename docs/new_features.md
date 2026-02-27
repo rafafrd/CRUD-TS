@@ -8,4 +8,4 @@
 
 - [x] Consulta para exibir as categorias em ordem alfabética
 
-- [] Crud completo para produtos com todos os recursos de categoria
+- [x] Crud completo para produtos com todos os recursos de categoria
