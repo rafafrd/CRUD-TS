@@ -3,7 +3,11 @@ import { CategoriaService } from "../services/categoria.service";
 
 export class CategoriaController {
   constructor(readonly _service = new CategoriaService()) { }
-
+    /**
+     * 
+     * @param req 
+     * @param res 
+     */
     selecionarTodos = async (req: Request, res: Response) => {
       try {
         const categorias = await this._service.selecionarTodos();

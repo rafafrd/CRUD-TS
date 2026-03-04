@@ -1,5 +1,7 @@
 import { Request, Response } from "express"; 
 import { ProdutoService } from "../services/produto.service";
+import fs from "node:fs";
+import path from "node:path";
 
 export class ProdutoController {
   constructor(readonly _service = new ProdutoService()) { }
@@ -31,10 +33,9 @@ export class ProdutoController {
     selecionarPorNome = async (req: Request, res: Response) => {
         try {
           const { nome } = req.query;
-          if (!nome || typeof nome !== 'string') { //sonaqube obriga a validação do tipo
+          if (!nome || typeof nome !== 'string') {
             return res.status(400).json({ error: "Parâmetro 'nome' é obrigatório e deve ser um texto válido." });
           }
-          // Remove espaços em branco nas pontas que poderiam quebrar o LIKE do banco
           const nomeBuscado = nome.trim();
           if (nomeBuscado.length === 0) {
             return res.status(400).json({ error: "Parâmetro 'nome' não pode ser vazio." });
@@ -54,18 +55,62 @@ export class ProdutoController {
         }
       }
 
+    // =============================================
+    // CRIAR — recebe form-data com campo "imagem"
+    // O multer já rodou como middleware na rota,
+    // então req.file já tem o arquivo (ou undefined)
+    // =============================================
     criar = async (req: Request, res: Response) => {
       try {
-        const { nome, preco, categoriaId } = req.body;
-        if (!nome || typeof nome !== 'string' || typeof preco !== 'number' || typeof categoriaId !== 'number') {
-          return res.status(400).json({ error: "Parâmetros 'nome', 'preco' e 'categoriaId' são obrigatórios e devem ser do tipo correto." });
+        // form-data envia tudo como STRING, então precisamos converter
+        const nome: string = req.body.nome;
+        const preco: string = req.body.preco;
+        const categoriaId: string = req.body.categoriaId;
+
+        // Valida campos obrigatórios
+        if (!nome || !preco || !categoriaId) {
+          this.limparImagem(req); // se a imagem subiu mas os dados estão errados, apaga
+          return res.status(400).json({
+            error: "Campos obrigatórios: 'nome', 'preco' e 'categoriaId'.",
+          });
         }
-        const resultado = await this._service.criar(nome, preco, categoriaId);
-        res.status(201).json({ message: "Produto criado com sucesso", id: resultado.insertId });
+
+        // Converte strings para números e valida
+        const precoNum = Number.parseFloat(preco);
+        if (Number.isNaN(precoNum) || precoNum <= 0) {
+          this.limparImagem(req);
+          return res.status(400).json({ error: "preco deve ser um número maior que zero." });
         }
-      catch (error: unknown) {
+
+        const categoriaIdNum = Number.parseInt(categoriaId);
+        if (Number.isNaN(categoriaIdNum) || categoriaIdNum <= 0) {
+          this.limparImagem(req);
+          return res.status(400).json({ error: "categoriaId deve ser um número inteiro maior que zero." });
+        }
+
+        // Cria o produto no banco
+        const resultado = await this._service.criar(nome, precoNum, categoriaIdNum);
+
+        // Responde com o ID criado + nome do arquivo (se enviou imagem)
+        res.status(201).json({
+          message: "Produto criado com sucesso",
+          id: resultado.insertId,
+          imagem: req.file ? req.file.filename : null,
+        });
+      } catch (error: unknown) {
+        this.limparImagem(req); // se deu erro, limpa o arquivo
         res.status(500).json({ error: "Erro ao criar produto", errorMessage: error instanceof Error ? error.message : "Erro desconhecido" });
         console.error("Erro ao criar produto:", error);
+      }
+    }
+
+    // Método auxiliar para apagar imagem se der erro
+    private limparImagem(req: Request): void {
+      if (req.file) {
+        const imagePath = path.resolve("uploads/images", req.file.filename);
+        if (fs.existsSync(imagePath)) {
+          fs.unlinkSync(imagePath);
+        }
       }
     }
 

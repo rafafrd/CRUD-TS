@@ -21,8 +21,7 @@ export class ProdutoService {
     return await this._repository.update(id, produto);
   }
   async deletar(id: number) {
-    const produto = Produto.deletar(id);
-    return await this._repository.delete(produto.Id!); // antes retornava o ID
+    return await this._repository.delete(id); // antes retornava o ID
   }
 }
   
